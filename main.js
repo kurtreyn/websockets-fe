@@ -4,6 +4,9 @@ function initGame(websocket) {
   websocket.addEventListener("open", () => {
     // Send an "init" event according to who is connecting.
     const params = new URLSearchParams(window.location.search);
+    const baseUrl = window.location.origin + window.location.pathname;
+    console.log("Initializing game with params:", params.toString());
+    console.log("Base URL:", baseUrl);
     let event = { type: "init" };
     if (params.has("join")) {
       // Second player joins an existing game.
@@ -13,8 +16,11 @@ function initGame(websocket) {
       event.watch = params.get("watch");
     } else {
       // First player starts a new game.
+      console.log("Starting a new game.");
     }
-    websocket.send(JSON.stringify(event));
+    const jsonFormattedEvent = JSON.stringify(event);
+    console.log("Sending event:", jsonFormattedEvent);
+    websocket.send(jsonFormattedEvent);
   });
 }
 
