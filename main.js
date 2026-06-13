@@ -31,11 +31,15 @@ function showMessage(message) {
 function receiveMoves(board, websocket) {
   websocket.addEventListener("message", ({ data }) => {
     const event = JSON.parse(data);
+    console.log("Received event:", event);
     switch (event.type) {
       case "init":
         // Create links for inviting the second player and spectators.
         document.querySelector(".join").href = "?join=" + event.join;
         document.querySelector(".watch").href = "?watch=" + event.watch;
+        showMessage(
+          `Game initialized! Share this URL with a friend to join: ${window.location.origin + window.location.pathname}?join=${event.join}`,
+        );
         break;
       case "play":
         // Update the UI with the move.
