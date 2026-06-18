@@ -33,10 +33,6 @@ function receiveMoves(board, websocket) {
       case "init":
         // Create links for inviting the second player and spectators.
         document.querySelector(".join").href = "?join=" + event.join_url;
-
-        showMessage(
-          `Game initialized! Share this URL with a friend to join: ${window.location.origin + window.location.pathname}?join=${event.join}`,
-        );
         break;
       case "play":
         // Update the UI with the move.
@@ -83,7 +79,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const board = document.querySelector(".board");
   createBoard(board);
   // Open the WebSocket connection and register event handlers.
-  const websocket = new WebSocket("ws://localhost:8001/");
+  const websocket = new WebSocket("ws://localhost:8080/");
   initGame(websocket);
   receiveMoves(board, websocket);
   sendMoves(board, websocket);
