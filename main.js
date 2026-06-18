@@ -11,9 +11,6 @@ function initGame(websocket) {
     if (params.has("join")) {
       // Second player joins an existing game.
       event.join = params.get("join");
-    } else if (params.has("watch")) {
-      // Spectator watches an existing game.
-      event.watch = params.get("watch");
     } else {
       // First player starts a new game.
       console.log("Starting a new game.");
@@ -35,8 +32,8 @@ function receiveMoves(board, websocket) {
     switch (event.type) {
       case "init":
         // Create links for inviting the second player and spectators.
-        document.querySelector(".join").href = "?join=" + event.join;
-        document.querySelector(".watch").href = "?watch=" + event.watch;
+        document.querySelector(".join").href = "?join=" + event.join_url;
+
         showMessage(
           `Game initialized! Share this URL with a friend to join: ${window.location.origin + window.location.pathname}?join=${event.join}`,
         );
