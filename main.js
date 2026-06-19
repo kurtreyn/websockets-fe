@@ -27,12 +27,13 @@ function showMessage(message) {
 
 function receiveMoves(board, websocket) {
   websocket.addEventListener("message", ({ data }) => {
+    console.log("receiveMoves - board:", board, "websocket:", websocket);
     const event = JSON.parse(data);
     console.log("Received event:", event);
     switch (event.type) {
       case "init":
         // Create links for inviting the second player and spectators.
-        document.querySelector(".join").href = "?join=" + event.join_url;
+        document.querySelector(".join").href = "?join=" + event.join;
         break;
       case "play":
         // Update the UI with the move.
